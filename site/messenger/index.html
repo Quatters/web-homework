@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<link rel="stylesheet" href="/site/style.css" />
+		<link rel="stylesheet" href="style.css" />
+		<link
+			rel="stylesheet"
+			href="https://use.fontawesome.com/releases/v5.15.4/css/all.css"
+			integrity="sha384-DyZ88mC6Up2uqS4h/KRgHuoeGwBcD4Ng9SiP4dIRy0EXTlnuz47vAwmeGwVChigm"
+			crossorigin="anonymous"
+		/>
+		<title>Мессенджер</title>
+	</head>
+	<body>
+		<header class="navbar">
+			<a href="/site/index.html" class="nav-item" id="home">Главная</a>
+			<a href="/site/about/index.html" class="nav-item" id="about">Обо мне</a>
+			<div class="dropdown nav-item">
+				<button class="dropdown-button">
+					Меню
+					<i class="fa fa-caret-down"></i>
+				</button>
+				<div class="dropdown-content">
+					<a href="/site/messenger/" class="dropdown-item" id="messenger">Мессенджер</a>
+				</div>
+			</div>
+		</header>
+
+		<div class="wrapper">
+			<div class="content">
+				<div class="users">
+					<div class="user-wrapper">
+						<div class="user-thumbnail"></div>
+						<div class="user-info-wrapper">
+							<div class="user-name">Бот вопрос/ответ</div>
+							<div class="last-message"></div>
+						</div>
+					</div>
+					<div class="user-wrapper">
+						<div class="user-thumbnail"></div>
+						<div class="user-info-wrapper">
+							<div class="user-name">Вы</div>
+							<div class="last-message"></div>
+						</div>
+					</div>
+				</div>
+				<div class="chat">
+					<div class="messages-wrapper"></div>
+					<div class="input-wrapper">
+						<textarea name="send-message" placeholder="Напишите сообщение..." class="autoresizable"></textarea>
+						<div class="send-btn-wrapper">
+							<button id="send-btn" type="button" onclick="onSendButtonClick">Отправить</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<template id="submit-template">
+			<div class="message-wrapper justify-content-end">
+				<div class="message">
+					<div class="message-author"></div>
+					<div class="message-body"></div>
+				</div>
+			</div>
+		</template>
+
+		<template id="new-user-template">
+			<div class="user-wrapper">
+				<div class="user-thumbnail"></div>
+				<div class="user-info-wrapper">
+					<div class="user-name"></div>
+					<div class="last-message">...</div>
+				</div>
+			</div>
+		</template>
+
+		<template id="add-user-template">
+			<div class="user-wrapper" id="add-user">
+				<img src="/site/img/new-message-icon.png" alt="New Message" />
+				<div class="user-info-wrapper">
+					<span>Написать...</span>
+				</div>
+			</div>
+		</template>
+
+		<script type="module" src="/site/messenger/scripts/main.js"></script>
+	</body>
+</html>

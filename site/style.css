@@ -2,6 +2,8 @@
 
 :root {
 	--navbar-color: rgb(123, 127, 145);
+	--active-color: rgb(70, 110, 170);
+	--main-shadow: 0px 4px 8px 0px rgba(0, 0, 0, 0.05);
 }
 
 * {
@@ -14,9 +16,9 @@
 
 .navbar {
 	display: flex;
-	justify-content:center;
+	justify-content: center;
 	background-color: var(--navbar-color);
-	box-shadow: 0px 4px 8px 0px rgba(0, 0, 0, 0.05);
+	box-shadow: var(--main-shadow);
 	margin: 12px;
 	border-radius: 4px;
 }
@@ -41,7 +43,7 @@
 }
 
 .nav-item:hover {
-	background-color: rgb(70, 110, 170);
+	background-color: var(--active-color);
 }
 
 .dropdown-content {
@@ -51,7 +53,7 @@
 	margin-top: 12px;
 	min-width: 150px;
 	background-color: var(--navbar-color);
-	box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+	box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
 }
 
 .dropdown {
@@ -65,9 +67,9 @@
 
 .dropdown-content > a {
 	float: none;
-  	color: rgb(255, 255, 255);
-  	text-decoration: none;
-  	text-align: left;
+	color: rgb(255, 255, 255);
+	text-decoration: none;
+	text-align: left;
 	font-weight: 400;
 }
 
@@ -77,11 +79,11 @@
 
 .dropdown-item {
 	float: none;
- 	color: rgb(255, 255, 255);
-  	padding: 10px 14px;
-  	text-decoration: none;
-  	display: block;
-  	text-align: left;
+	color: rgb(255, 255, 255);
+	padding: 10px 14px;
+	text-decoration: none;
+	display: block;
+	text-align: left;
 }
 
 .container {
@@ -116,7 +118,9 @@
 	margin-right: 12rem;
 }
 
-.links, #name, #post {
+.links,
+#name,
+#post {
 	margin-top: 10px;
 }
 
@@ -147,4 +151,12 @@
 
 .spoiler > summary {
 	margin-bottom: 10px;
+}
+
+.justify-content-start {
+	justify-content: start;
+}
+
+.justify-content-end {
+	justify-content: end;
 }
