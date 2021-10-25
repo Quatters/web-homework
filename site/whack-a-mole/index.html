@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/site/style.css" />
+    <link rel="stylesheet" href="style.css" />
+    <link
+      rel="stylesheet"
+      href="https://use.fontawesome.com/releases/v5.15.4/css/all.css"
+      integrity="sha384-DyZ88mC6Up2uqS4h/KRgHuoeGwBcD4Ng9SiP4dIRy0EXTlnuz47vAwmeGwVChigm"
+      crossorigin="anonymous"
+    />
+    <title>Whack a mole</title>
+  </head>
+  <body>
+    <header class="navbar">
+      <a href="/site/index.html" class="nav-item" id="home">Главная</a>
+      <a href="/site/about/index.html" class="nav-item" id="about">Обо мне</a>
+      <div class="dropdown nav-item">
+        <button class="dropdown-button">
+          Меню
+          <i class="fa fa-caret-down"></i>
+        </button>
+        <div class="dropdown-content">
+          <a href="/site/messenger/" class="dropdown-item" id="messenger">Мессенджер</a>
+          <a href="/site/whack-a-mole/" class="dropdown-item" id="messenger">Whack a mole</a>
+        </div>
+      </div>
+    </header>
+
+    <div class="input-wrapper">
+      <div class="generation-handle">
+        <input type="text" id="width" placeholder="Ширина" maxlength="2" />
+        <input type="text" id="height" placeholder="Высота" maxlength="2" />
+        <button type="button" class="generate-button">Создать поле</button>
+      </div>
+      <div class="flex-break"></div>
+      <div class="error-wrapper">
+        <span id="error-message" class="error hidden">Введено неправильное значение</span>
+        <span id="too-small-message" class="error hidden">Поле слишком маленькое. Минимальная площадь 16 клеток<sup>2</sup></span>
+        <span id="too-big-message" class="error hidden">Поле слишком большое. Максимальная площадь 150 клеток<sup>2</sup></span>
+        <span id="field-not-ready" class="error hidden">Пожалуйста, задайте поле</span>
+      </div>
+      <div class="flex-break"></div>
+      <div class="play-handler">
+        <button type="button" class="play-button">Играть</button>
+        <span class="score">Очки: 0</span>
+        <span class="time">Осталось времени: 0</span>
+      </div>
+    </div>
+    <div class="field-wrapper"></div>
+
+    <template id="row-template">
+      <div class="row"></div>
+    </template>
+
+    <script type="module" src="/site/whack-a-mole/script.js"></script>
+  </body>
+</html>
