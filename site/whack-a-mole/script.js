@@ -1,51 +1,101 @@
-let cells;
+import * as field from '../field-handler.js';
 
-function generateField() {
-  document.querySelector('#error-message').classList.add('hidden');
-  document.querySelector('#too-big-message').classList.add('hidden');
-  let field = document.querySelector('.field-wrapper');
+const playButton = document.querySelector('.play-button');
+const generateButton = document.querySelector('.generate-button');
+const timeSpan = document.querySelector('.time');
+const scoreSpan = document.querySelector('.score');
+const initialTimeleft = 30;
 
-  try {
-    let width = parseInt(document.querySelector('#width').value);
-    let height = parseInt(document.querySelector('#height').value);
+let prevActiveCell = null;
+let activeCell = null;
+let score = 0;
+let delay = 700;
+let timeLeft = initialTimeleft;
+let gameloop, timer;
+let isPlaying = false;
 
-    if (width * height > 150) throw 'Too big';
+window.onload = function () {
+  playButton.addEventListener('click', play);
+  generateButton.addEventListener('click', field.generateField.bind(this, onCellClick), false);
+};
 
-    cells = new Array(width);
-    field.innerHTML = '';
+function play() {
+  if (isPlaying) {
+    stopGame();
+    return;
+  }
+  playButton.innerText = 'Стоп';
+  generateButton.score = 0;
+  scoreSpan.innerText = `Очки: ${score}`;
 
-    let row = document.querySelector('#row-template').content;
+  generateButton.setAttribute('disabled', 'disabled');
 
-    for (let i = 0; i < width; i++) {
-      let currentRow = row.cloneNode(true);
-      field.append(currentRow);
-      currentRow = field.querySelectorAll('.row').item(i);
+  if (!field.isReady) {
+    field.hideErrorMessages();
+    field.showError('field-not-ready');
+    return;
+  }
+  timeSpan.innerText = `Осталось времени: ${timeLeft} сек`;
 
-      cells[i] = new Array(height);
+  startGameloop();
+  startTimer();
+  isPlaying = true;
+}
 
-      for (let j = 0; j < height; j++) {
-        cells[i][j] = createCell(i + '' + j);
-        currentRow.append(cells[i][j]);
-        cells[i][j] = currentRow.querySelector('#cell-' + i + '' + j);
-        cells[i][j].addEventListener('click', onCellClick);
-      }
+function startTimer() {
+  timer = setInterval(() => {
+    timeLeft--;
+    timeSpan.innerHTML = `Осталось времени: ${timeLeft} сек`;
+    if (timeLeft <= 0) {
+      stopGame();
     }
-  } catch (error) {
-    field.innerHTML = '';
-    if (error === 'Too big') document.querySelector('#too-big-message').classList.remove('hidden');
-    else document.querySelector('#error-message').classList.remove('hidden');
+  }, 1000);
+}
+
+function startGameloop() {
+  gameloop = setInterval(() => {
+    let x = Math.floor(Math.random() * field.width);
+    let y = Math.floor(Math.random() * field.height);
+
+    activeCell = field.cells[x][y];
+
+    let img = document.createElement('img');
+    img.setAttribute('src', '/site/img/mole.png');
+    img.setAttribute('alt', 'Mole');
+    img.setAttribute('width', 30);
+
+    if (prevActiveCell !== null) {
+      prevActiveCell.innerHTML = '';
+    }
+    activeCell.append(img);
+    prevActiveCell = activeCell;
+  }, delay);
+}
+
+function stopGame() {
+  isPlaying = false;
+  playButton.innerText = 'Играть';
+  timeSpan.innerText = 'Осталось времени: 0 сек';
+  generateButton.removeAttribute('disabled');
+
+  clearInterval(gameloop);
+
+  timeLeft = initialTimeleft;
+  clearInterval(timer);
+
+  for (let i = 0; i < field.width; i++) {
+    for (let j = 0; j < field.height; j++) {
+      field.cells[i][j].innerHTML = '';
+    }
   }
 }
 
-function createCell(id) {
-  let cell = document.createElement('div');
-  cell.setAttribute('class', 'cell');
-  cell.setAttribute('id', 'cell-' + id);
-
-  return cell;
-}
-
 function onCellClick(event) {
-  // реализация игры
-  console.log(event);
+  if (!isPlaying) return;
+
+  if (event.currentTarget == activeCell) {
+    score++;
+    scoreSpan.innerText = `Очки: ${score}`;
+    activeCell.innerHTML = '';
+  }
 }

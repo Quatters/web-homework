@@ -31,12 +31,23 @@
     </header>
 
     <div class="input-wrapper">
-      <input type="text" id="width" placeholder="Ширина" maxlength="2" />
-      <input type="text" id="height" placeholder="Высота" maxlength="2" />
-      <button type="button" onclick="generateField()">Создать поле</button>
+      <div class="generation-handle">
+        <input type="text" id="width" placeholder="Ширина" maxlength="2" />
+        <input type="text" id="height" placeholder="Высота" maxlength="2" />
+        <button type="button" class="generate-button">Создать поле</button>
+      </div>
       <div class="flex-break"></div>
-      <span id="error-message" class="hidden">Введено неправильное значение</span>
-      <span id="too-big-message" class="hidden">Поле слишком большое. Максимальная площадь 150 клеток<sup>2</sup></span>
+      <div class="error-wrapper">
+        <span id="error-message" class="error hidden">Введено неправильное значение</span>
+        <span id="too-big-message" class="error hidden">Поле слишком большое. Максимальная площадь 150 клеток<sup>2</sup></span>
+        <span id="field-not-ready" class="error hidden">Пожалуйста, задайте поле</span>
+      </div>
+      <div class="flex-break"></div>
+      <div class="play-handler">
+        <button type="button" class="play-button">Играть</button>
+        <span class="score">Очки: 0</span>
+        <span class="time">Осталось времени: 0</span>
+      </div>
     </div>
     <div class="field-wrapper"></div>
 
@@ -44,6 +55,6 @@
       <div class="row"></div>
     </template>
 
-    <script type="text/javascript" src="/site/whack-a-mole/script.js"></script>
+    <script type="module" src="/site/whack-a-mole/script.js"></script>
   </body>
 </html>
