@@ -24,22 +24,22 @@ function play() {
     stopGame();
     return;
   }
-  playButton.innerText = 'Стоп';
-  generateButton.score = 0;
-  scoreSpan.innerText = `Очки: ${score}`;
-
-  generateButton.setAttribute('disabled', 'disabled');
 
   if (!field.isReady) {
     field.hideErrorMessages();
     field.showError('field-not-ready');
     return;
   }
+
   timeSpan.innerText = `Осталось времени: ${timeLeft} сек`;
+  score = 0;
+  scoreSpan.innerText = `Очки: ${score}`;
 
   startGameloop();
   startTimer();
   isPlaying = true;
+  generateButton.setAttribute('disabled', 'disabled');
+  playButton.innerText = 'Стоп';
 }
 
 function startTimer() {

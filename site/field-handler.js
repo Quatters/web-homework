@@ -10,6 +10,7 @@ function generateField(cellListener) {
     let h = parseInt(document.querySelector('#height').value);
 
     if (w * h > 150) throw 'Too big';
+    if (w * h < 16) throw 'Too small';
 
     width = w;
     height = h;
@@ -38,6 +39,7 @@ function generateField(cellListener) {
     isReady = false;
     field.innerHTML = '';
     if (error === 'Too big') showError('too-big-message');
+    else if (error === 'Too small') showError('too-small-message');
     else showError('error-message');
   }
 }
