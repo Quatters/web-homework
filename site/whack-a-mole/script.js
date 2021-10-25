@@ -2,13 +2,16 @@ let cells;
 
 function generateField() {
   document.querySelector('#error-message').classList.add('hidden');
+  document.querySelector('#too-big-message').classList.add('hidden');
+  let field = document.querySelector('.field-wrapper');
 
   try {
     let width = parseInt(document.querySelector('#width').value);
     let height = parseInt(document.querySelector('#height').value);
 
+    if (width * height > 150) throw 'Too big';
+
     cells = new Array(width);
-    let field = document.querySelector('.field-wrapper');
     field.innerHTML = '';
 
     let row = document.querySelector('#row-template').content;
@@ -28,8 +31,9 @@ function generateField() {
       }
     }
   } catch (error) {
-    document.querySelector('#error-message').classList.remove('hidden');
-    return;
+    field.innerHTML = '';
+    if (error === 'Too big') document.querySelector('#too-big-message').classList.remove('hidden');
+    else document.querySelector('#error-message').classList.remove('hidden');
   }
 }
 
