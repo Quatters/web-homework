@@ -32,7 +32,6 @@ function onCellClick(event) {
 
   switchCell(cell);
 
-  console.log(field.cells[1][cellY]);
   for (let i = 0; i < field.width; i++) {
     switchCell(field.cells[i][cellY]);
   }

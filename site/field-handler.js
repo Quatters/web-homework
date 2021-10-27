@@ -1,6 +1,9 @@
 let cells, width, height;
 let isReady = false;
 
+let min = 16;
+let max = 150;
+
 function generateField(cellListener) {
   hideErrorMessages();
   let field = document.querySelector('.field-wrapper');
@@ -9,8 +12,8 @@ function generateField(cellListener) {
     let w = parseInt(document.querySelector('#width').value);
     let h = parseInt(document.querySelector('#height').value);
 
-    if (w * h > 150) throw 'Too big';
-    if (w * h < 16) throw 'Too small';
+    if (w * h > max) throw 'Too big';
+    if (w * h < min) throw 'Too small';
 
     width = w;
     height = h;
@@ -68,4 +71,21 @@ function showError(id) {
   }
 }
 
-export { cells, isReady, width, height, generateField, hideErrorMessages, showError };
+function indexOf(cell) {
+  for (let i = 0; i < width; i++) {
+    for (let j = 0; j < height; j++) {
+      if (cells[i][j] === cell) return { i, j };
+    }
+  }
+  return null;
+}
+
+function setMax(value) {
+  max = value;
+}
+
+function setMin(value) {
+  min = value;
+}
+
+export { cells, isReady, width, height, generateField, hideErrorMessages, showError, setMin, setMax, indexOf };

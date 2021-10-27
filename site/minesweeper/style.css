@@ -1,0 +1,24 @@
+.opened {
+  background-color: rgb(221, 221, 221);
+}
+
+.opened:hover {
+  background-color: rgb(233, 233, 233);
+}
+
+.bomb {
+  background-color: black !important;
+}
+
+.flag {
+  background-color: yellow;
+}
+
+.play-handler span {
+  margin-right: 8px;
+}
+
+#bombs-percent {
+  width: 36px;
+  margin-left: 2px;
+}
