@@ -138,7 +138,7 @@ body {
   outline: none;
   border: 1px solid var(--separator-color);
   padding: 10px 14px;
-  width: 100%;
+  width: 80%;
   height: auto;
   max-height: 190px;
   resize: none;
