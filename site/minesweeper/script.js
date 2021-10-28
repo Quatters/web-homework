@@ -31,10 +31,9 @@ window.onload = function () {
 };
 
 function onGenerateCells() {
-  // if (field.cells == null) return;
-
   initializeField();
   flagsSpan.innerText = 'Флагов: 0/0';
+  marks = 0;
   areBombsGenerated = false;
 }
 
@@ -93,7 +92,7 @@ function getRandomIndex() {
 }
 
 function onCellClick(event) {
-  if (gameEnded) return;
+  if (gameEnded || event.currentTarget.marked) return;
 
   if (!areBombsGenerated) {
     generateBombs(event.currentTarget);
