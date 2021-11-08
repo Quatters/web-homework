@@ -1,0 +1,31 @@
+.content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.color-red {
+  color: red !important;
+}
+
+.countdown {
+  margin: 16px;
+  font-size: 36px;
+  color: var(--navbar-color);
+}
+
+.start-button {
+  font-size: 14px;
+  padding: 6px 16px;
+  background-color: var(--navbar-color);
+  color: white;
+  font-weight: 400;
+  border: none;
+  border-radius: 3px;
+}
+
+.start-button:hover {
+  background-color: var(--active-color);
+  cursor: pointer;
+}
