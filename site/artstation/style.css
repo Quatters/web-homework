@@ -1,0 +1,9 @@
+.content {
+  display: flex;
+  justify-content: center;
+  margin: 36px;
+}
+
+.content > * {
+  width: 320px;
+}
