@@ -1,0 +1,13 @@
+{
+    "name": "ubuntu/composer",
+    "autoload": {
+        "psr-4": {
+            "Controllers\\": "src/Controllers",
+            "Models\\": "src/Models"
+        }
+    },
+    "require": {
+        "monolog/monolog": "^2.5",
+        "twig/twig": "^3.0"
+    }
+}
