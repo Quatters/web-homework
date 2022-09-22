@@ -50,7 +50,13 @@ cursor.executescript("""
         FOREIGN KEY (genre_id) REFERENCES genre(genre_id)
     );
 
-    INSERT INTO book (title, genre_id, publisher_id, year_publication, available_numbers) VALUES
+    INSERT INTO book (
+        title,
+        genre_id,
+        publisher_id,
+        year_publication,
+        available_numbers
+    ) VALUES
     ('Мастер и Маргарита', 1, 2, 2014, 5),
     ('Таинственный остров', 2, 2, 2015, 10),
     ('Бородино', 4, 3, 2015, 12),
