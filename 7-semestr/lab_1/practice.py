@@ -125,8 +125,9 @@ result = read_sql("""
     FROM book
     JOIN publisher ON book.publisher_id = publisher.publisher_id
     JOIN genre ON book.genre_id = genre.genre_id
+    WHERE publisher_name = :publisher_name
     ORDER BY Группа DESC, year_publication, title
-""", connection, params={'publisher_name': 'ЭКСМО'})
+""", connection, params={'publisher_name': 'АСТ'})
 
 print(result, '\n')
 
@@ -148,6 +149,52 @@ result = read_sql("""
     LEFT JOIN book_reader ON book_reader.book_id = book.book_id
     GROUP BY book.book_id
     ORDER BY Количество_выдачи DESC, title, available_numbers
+""", connection)
+
+print(result)
+
+
+# создать таблицу, в которой для каждого издательства
+# включить книги, общее кол-ва экз. которых меньше заданного значения
+# available_number + те, которые не сданы
+
+
+connection.executescript("""
+    DROP TABLE IF EXISTS books2;
+
+    CREATE TABLE books2 (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        title VARCHAR(128),
+        total INTEGER,
+        publisher_name VARCHAR(128)
+    );
+""")
+
+connection.execute("""
+    WITH subquery AS (
+        SELECT book_id, count(book_id) AS _count
+        FROM book_reader
+        WHERE return_date is NULL
+        GROUP BY book_id
+    )
+
+    INSERT INTO books2 (title, total, publisher_name)
+    SELECT
+        title,
+        CASE
+            WHEN _count is NULL THEN available_numbers
+            ELSE _count + available_numbers
+        END AS total,
+        publisher_name
+    FROM book
+    LEFT JOIN subquery ON book.book_id = subquery.book_id
+    JOIN publisher ON book.publisher_id = publisher.publisher_id
+    WHERE total < :total
+    ORDER BY total, publisher_name
+""", {'total': 10})
+
+result = read_sql("""
+    SELECT * FROM books2;
 """, connection)
 
 print(result)
