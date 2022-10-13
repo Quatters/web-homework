@@ -975,20 +975,29 @@ ORDER BY from_city, to_city, departure_time
 # доход за все время по всем маршрутам
 result = read_sql("""
 SELECT
-	SUM(f.price) AS income,
-	COUNT(t.ticket_id) AS ticket_count
-FROM flight f
-JOIN ticket t ON f.flight_id = t.flight_id;
+  	SUM(price) AS income,
+  	COUNT(ticket_id) AS ticket_count,
+    city
+FROM flight
+JOIN ticket ON flight.flight_id = ticket.flight_id
+JOIN route_schedule ON route_schedule.schedule_id = flight.schedule_id
+JOIN route ON route.route_number = route_schedule.route_number
+JOIN city ON city.city_id = route.`to`
+GROUP BY city.city_id
+ORDER BY income DESC
 """, connection)
+print('Доход по городам')
+print(result)
+
 # самый популярный маршрут (с наибольшим количеством купленных билетов)
 result = read_sql("""
 SELECT
 	r.route_number AS 'route_number',
 	COUNT(t.ticket_id) AS 'ticket_count'
 FROM route r
-RIGHT JOIN route_schedule rs ON r.route_number = rs.route_number
-RIGHT JOIN flight f ON rs.schedule_id = f.schedule_id
-RIGHT JOIN ticket t ON f.flight_id = t.flight_id
+JOIN route_schedule rs ON r.route_number = rs.route_number
+JOIN flight f ON rs.schedule_id = f.schedule_id
+JOIN ticket t ON f.flight_id = t.flight_id
 WHERE t.name IS NOT NULL
 """, connection)
 
