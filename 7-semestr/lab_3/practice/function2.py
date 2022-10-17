@@ -23,9 +23,9 @@ def create_pict(x, y):
 n_var = 1
 list_f = ["f(x)", "y(x)", "z(x)"]
 
-a = -2
-b = 6
-n = 30
+a = -10
+b = 10
+n = 100
 h = (abs(a) + abs(b)) / n
 x_list = [a + (idx * h) for idx in range(n + 1)]
 f_list = [f_x(x, n_var) for x in x_list]
