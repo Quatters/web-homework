@@ -1,0 +1,43 @@
+{% macro render_list(_list) %}
+<ul>
+  {% for item in _list %}
+  <li>
+    {% if loop.last %}
+    {{ item }}.
+    {% else %}
+    {{ item }},
+    {% endif %}
+  </li>
+  {% endfor %}
+</ul>
+{% endmacro %}
+
+<body>
+  <p>
+    Привет,
+    {% if user[3] == "ж" %}
+    студентка
+    {% else %}
+    студент
+    {% endif %}
+    <span style="color: green;">
+      {{add_spaces (user[0])}}!
+    </span>
+  </p>
+  <p>
+    Ваша образовательная программа
+    <b>
+      {% if user[1] == 'Экономика' %}
+      38.03.01
+      {% else %}
+      00.00.00
+      {% endif %}
+      {{user[1]}}.
+    </b>
+  </p>
+  <p>
+    {% set n = len(user[2]) %}
+    Вы изучаете {{ get_disciplines(n) }}:<br>
+    {{ render_list(user[2]) }}
+  </p>
+</body>

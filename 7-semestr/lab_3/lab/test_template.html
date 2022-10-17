@@ -1,0 +1,25 @@
+<body>
+  <p>
+    Привет,
+    {% if user[3] == "ж" %}
+    студентка
+    {% else %}
+    студент
+    {% endif %}
+    {{add_spaces (user[0])}}!
+  </p>
+  <p>
+    Ваша образовательная программа {{user[1]}}.
+  </p>
+  <p>
+    Вы изучаете дисциплины:<br>
+    {% set n = len(user[2] ) %}
+    {% for i in range(n) %}
+    {% if i == n - 1 %}
+    {{user[2][i]}}.
+    {% else %}
+    {{user[2][i]}},
+    {% endif %}
+    {% endfor %}
+  </p>
+</body>

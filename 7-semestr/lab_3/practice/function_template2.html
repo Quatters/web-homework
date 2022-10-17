@@ -1,0 +1,101 @@
+<html>
+
+<head>
+  <title>Таблица и график функции</title>
+</head>
+
+<body>
+  <div class="form-wrapper">
+    <form>
+      <p>Функция:
+        <select name=n_var>
+          {% for i in range(len(list_f)) %}
+          {% if n_var == i %}
+          <option selected value="{{ i }}"> {{ list_f[i] }}</option>
+          {% else %}
+          <option value="{{ i }}"> {{ list_f[i] }}</option>
+          {% endif %}
+          {% endfor %}
+        </select>
+      </p>
+      <p>
+        Начало интервала:
+        <input type="text" name="a" value="{{ a }}"" size=" 1">
+      </p>
+      <p>
+        Конец интервала:
+        <input type="text" name="b" value="{{ b }}" size="1">
+      </p>
+      <p>
+        Количество значений:
+        <input type="text" name="n" value="{{ n }}" size="1">
+      </p>
+      <p>
+        <input type="submit" value="Построить">
+      </p>
+    </form>
+
+    <p>
+      {% if n_var == 1 %}
+      f(x) = x^3 - 6x^2 + x + 5
+      {% elif n_var == 2 %}
+      y(x) = x^2 - 5x + 1
+      {% else %}
+      z(x) = 1 / (x^2 + 1)
+      {% endif %}
+    </p>
+  </div>
+
+  <div class="content">
+    <div style="float: left">
+      <table border="1" cellpadding="9">
+        <tr>
+          <th>x</th>
+          <th>f(x)</th>
+        </tr>
+        <tbody>
+          {% for i in range(len(x)) %}
+          <tr>
+            <td>{{x[i]}}</td>
+            <td>{{y[i]}}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+    <div style="float: right">
+      <img src="{{ pict }}">
+    </div>
+  </div>
+</body>
+
+<style>
+  .form-wrapper {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+  }
+
+  .content {
+    display: flex;
+    justify-content: center;
+  }
+
+  table {
+    font-size: 12px;
+    border-collapse: collapse;
+  }
+
+  table,
+  th,
+  td {
+    border-color: rgb(180, 180, 180);
+  }
+
+  tr:nth-child(2n) {
+    background-color: rgb(242, 242, 242);
+  }
+
+</style>
+
+</html>
