@@ -1,0 +1,70 @@
+{% macro render_table(table_name, relation) %}
+<div class="table-wrapper">
+  <p class="table-name">
+    <b>{{table_name}}</b>
+  </p>
+  {% set n = len(relation) %}
+  <table border="1">
+    <tr>
+      {% for name in relation.dtypes.index %}
+      <th>{{name}}</th>
+      {% endfor %}
+    </tr>
+    <tbody>
+      {% for i in range(n) %}
+      <tr>
+        {% for name in relation.dtypes.index %}
+        {% set td = relation.loc[i, name] %}
+        <td>
+          {% if name == 'Дата возврата' and td == None %}
+          <button>Сдать</button>
+          {% else %}
+          {{ td }}
+          {% endif %}
+        </td>
+        {% endfor %}
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endmacro %}
+
+{% macro render_select_form(values, internal_name, repr_name, selected_value) %}
+<select name="{{ repr_name }}">
+  {% for i in range(len(values)) %}
+  {% set current = values.loc[i, internal_name] %}
+  {% if current == selected_value %}
+  <option selected value="{{ current }}">
+  {% else %}
+  <option value="{{ current }}">
+    {% endif %}
+    {{ combo_box.loc[i, repr_name] }}
+  </option>
+  {% endfor %}
+</select>
+{% endmacro %}
+
+<html>
+
+<head>
+  <title> Карточка читателя </title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <div class="content">
+    <div>
+      <form>
+        Читатель:
+        {{ render_select_form(combo_box, 'reader_id', 'reader_name', reader_id) }}
+        </select>
+        <input type="submit" value="Найти">
+      </form>
+
+      {{render_table('Карточка', book_reader)}}
+    </div>
+  </div>
+</body>
+
+</html>

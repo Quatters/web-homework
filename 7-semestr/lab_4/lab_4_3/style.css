@@ -1,0 +1,83 @@
+* {
+  font-family: sans-serif;
+}
+
+.content {
+  display: flex;
+  margin-top: 1rem;
+}
+
+.results {
+  display: flex;
+  flex-wrap: wrap;
+  align-content: flex-start;
+}
+
+.filters-wrapper {
+  min-width: 16rem;
+  margin-top: -1px;
+  position: sticky;
+  height: 100%;
+  top: 15px;
+}
+
+.filters-wrapper fieldset {
+  margin-bottom: 8px;
+  border: 1px solid lightgray;
+  border-radius: 6px;
+}
+
+.filters-wrapper label {
+  color: rgb(15, 83, 165);
+}
+
+.filters-wrapper input[checkbox] {
+  background-color: rgb(15, 83, 165);
+}
+
+.filters-wrapper button, .filters-wrapper .count {
+  margin-left: 3px;
+}
+
+.filters-wrapper .count {
+  margin-top: 1rem;
+  font-size: 11pt;
+}
+
+.checkbox-wrapper:not(:last-child) {
+  margin-bottom: 4px;
+}
+
+.checkbox-wrapper {
+  display: flex;
+  width: 100%;
+}
+
+.checkbox-wrapper > input[checkbox] {
+  margin-right: 3px;
+}
+
+.card {
+  background-color: rgb(246, 246, 246);
+  border: 1px solid lightgray;
+  border-radius: 6px;
+  padding: 12px 20px;
+  margin: 8px;
+  width: 20rem;
+  min-width: 17rem;
+  position: relative;
+}
+
+.card .button-wrapper {
+  bottom: 1rem;
+  right: 1rem;
+  position: absolute;
+}
+
+.card p {
+  margin: 2px;
+}
+
+.card p:last-child {
+  margin-bottom: 1rem;
+}
