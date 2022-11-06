@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="/static/css/style.css" />
+    <title>Новый читатель</title>
+</head>
+
+<body>
+    {% include 'header.j2' %}
+    <div class="block">
+        <form action='/' method="post">
+            <p>
+                <label for="reader-name-input">Имя читателя:</label>
+                <input type="text" id="reader-name-input" name="new_reader" required>
+            </p>
+            <p>
+                <button type="submit">Добавить читателя</button>
+                <button type="reset" onclick="history.back()">Отменить</button>
+            </p>
+        </form>
+    </div>
+</body>
+
+</html>

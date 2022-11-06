@@ -1,0 +1,87 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <link rel="stylesheet" type="text/css" href="/static/css/style.css" />
+    <title> Карточка читателя </title>
+    <!—- Макрос для вывода таблицы без ключевого столбца, переданного параметром
+        -->
+        {% macro render_table(table_name, relation, id) %}
+        <p>
+            <b>{{table_name}} </b>
+        </p>
+        {% set n = len(relation) %}
+        <table border="1" cellpadding="9">
+            <tr>
+                {% for name in relation.dtypes.index %}
+                {% if name != id %}
+                <th>{{name}}</th>
+                {% endif %}
+                {% endfor %}
+            </tr>
+            <tbody>
+                {% for i in range(n) %}
+                <tr>
+                    {% for name in relation.dtypes.index %}
+                    {% if name != id %}
+                    <td>
+                        {% if relation.loc[i, name] == None %}
+                        <form action='' method="post">
+                            <input type="hidden" name=return
+                                value={{relation.loc[i, "book_reader_id" ]}}>
+                            <input type="submit" value="Сдать">
+                        </form>
+                        {% else %}
+                        {{ relation.loc[i, name] }}
+                        {% endif %}
+                    </td>
+                    {% endif %}
+                    {% endfor %}
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% endmacro %}
+
+        {% macro render_select_form(values, internal_name, repr_name,
+        selected_value) %}
+        <select name="{{ internal_name }}">
+            {% for i in range(len(values)) %}
+            {% set current = values.loc[i, internal_name] %}
+            {% if current == selected_value %}
+            <option selected value="{{ current }}">
+                {% else %}
+            <option value="{{ current }}">
+                {% endif %}
+                {{ combo_box.loc[i, repr_name] }}
+            </option>
+            {% endfor %}
+        </select>
+        {% endmacro %}
+</head>
+
+<body>
+    {% include 'header.j2' %}
+    <div class=block>
+        <p>
+        <form action='' method="get">
+            Читатель:
+            {{ render_select_form(combo_box, 'reader_id', 'reader_name', reader_id) }}
+            <input type="submit" value="Найти">
+        </form>
+        </p>
+        </p>
+        <form action="/new_reader" method="get">
+            <input type="submit" value="Новый читатель">
+        </form>
+        </p>
+        {{ render_table("Карточка", book_reader, "book_reader_id") }}
+        </p>
+        <form action="/search" method="get">
+            <input type="submit" value="Взять книгу">
+        </form>
+        </p>
+    </div>
+</body>
+
+</html>

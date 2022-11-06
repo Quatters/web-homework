@@ -1,0 +1,78 @@
+{% macro render_card(row, pk_name) %}
+<div class="card">
+    <form method="get">
+        {% set d = row._asdict() %}
+        {% for name, value in d.items() %}
+        {% if name != pk_name %}
+        <p>
+            {{ name }}: <b>{{ value }}</b>
+        </p>
+        {% endif %}
+        {% endfor %}
+    </form>
+    <form class="button-wrapper" action="/" method="post">
+        {% if row.Количество > 0 %}
+        <button type="submit">Выбрать</button>
+        {% else %}
+        <button disabled>Выбрать</button>
+        {% endif %}
+        <input type="hidden" name="{{ pk_name }}" value="{{ d[pk_name] }}">
+        </form>
+</div>
+{% endmacro %}
+
+{% macro render_filter(group, df, pk_name, repr_name, applied_filters) %}
+<fieldset>
+    <legend>{{ group }}</legend>
+    {% for row in df.itertuples(index=False) %}
+    {% set d = row._asdict() %}
+    <div class="checkbox-wrapper">
+        <input type="checkbox" {% if d[pk_name] in applied_filters %} checked {%
+            endif %} name="{{ pk_name }}" value="{{ d[pk_name] }}"
+            id="filter__{{ group }}__{{ d[pk_name] }}">
+        <label for="filter__{{ group }}__{{ d[pk_name] }}">
+            {{ d[repr_name] }}
+        </label>
+    </div>
+    {% endfor %}
+</fieldset>
+{% endmacro %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="/static/css/style.css" />
+    <title>Выбрать книгу</title>
+</head>
+
+<body>
+    {% include 'header.j2' %}
+
+    <div class="content">
+        <div class="filters-wrapper">
+            <form>
+                {% for name, df in filters.items() %}
+                {{ render_filter(name, df, df.columns[0], df.columns[1],
+                applied_filters[df.columns[0]]) }}
+                {% endfor %}
+                <button type="submit">Искать</button>
+                <button type="button"
+                    onclick="document.querySelectorAll('input[type=checkbox]').forEach(el => el.checked = false)">Очистить</button>
+            </form>
+            <button type="button" onclick="window.location.href = '/'"
+                style="margin-top: 1rem">Не
+                выбирать книгу</button>
+        </div>
+        <div class="results">
+            {% for row in df.itertuples(index=False) %}
+            {{ render_card(row, df.pk_name or df.columns[0]) }}
+            {% endfor %}
+        </div>
+    </div>
+</body>
+
+</html>
